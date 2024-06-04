@@ -42,6 +42,7 @@ extension SUAppcastItem {
 public class AutoUpdater: NSObject, SPUUpdaterDelegate {
     var _userDriver: SPUStandardUserDriver?
     var _updater: SPUUpdater?
+    var _immediateInstallHandler: (() -> Void)?
     
     public var onEvent:((String, NSDictionary) -> Void)?
     
@@ -73,6 +74,13 @@ public class AutoUpdater: NSObject, SPUUpdaterDelegate {
     
     public func setScheduledCheckInterval(_ interval: Int) {
         _updater?.updateCheckInterval = TimeInterval(interval)
+    }
+
+    public func showReadyToInstallAndRelaunch() {
+        if (_immediateInstallHandler == nil) {
+            return
+        }
+        _immediateInstallHandler!()
     }
     
     // SPUUpdaterDelegate
@@ -116,6 +124,7 @@ public class AutoUpdater: NSObject, SPUUpdaterDelegate {
         let data: NSDictionary = [
             "appcastItem": item.toDictionary()
         ]
+        _immediateInstallHandler = immediateInstallHandler
         _emitEvent("before-quit-for-update", data)
         return true
     }

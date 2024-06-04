@@ -58,6 +58,10 @@ public class AutoUpdaterMacosPlugin: NSObject, FlutterPlugin,FlutterStreamHandle
             autoUpdater.setScheduledCheckInterval(interval)
             result(true)
             break
+        case "showReadyToInstallAndRelaunch":
+            autoUpdater.showReadyToInstallAndRelaunch()
+            result(true)
+            break
         default:
             result(FlutterMethodNotImplemented)
         }

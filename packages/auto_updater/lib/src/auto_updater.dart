@@ -96,6 +96,10 @@ class AutoUpdater {
   Future<void> setScheduledCheckInterval(int interval) {
     return _platform.setScheduledCheckInterval(interval);
   }
+
+  Future<void> showReadyToInstallAndRelaunch() {
+    return _platform.showReadyToInstallAndRelaunch();
+  }
 }
 
 final autoUpdater = AutoUpdater.instance;

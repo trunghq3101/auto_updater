@@ -44,4 +44,9 @@ class MethodChannelAutoUpdater extends AutoUpdaterPlatform {
     };
     await methodChannel.invokeMethod('setScheduledCheckInterval', arguments);
   }
+
+  @override
+  Future<void> showReadyToInstallAndRelaunch() async {
+    await methodChannel.invokeMethod('showReadyToInstallAndRelaunch');
+  }
 }
